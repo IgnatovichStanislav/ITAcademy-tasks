@@ -3,7 +3,8 @@ var Shop = React.createClass({
     getInitialState: function () {
         return {
             // products:this.props.products.map(product=>Object.assign({selected:false},product))
-            products: this.props.products
+            products: this.props.products,
+            selectedProductId: null
         }
     },
     propTypes: {
@@ -17,10 +18,9 @@ var Shop = React.createClass({
             })
         )
     },
-    onProductSelect: function (id, select) {
-        var products = [...this.state.products];
-        products.forEach(x => x.selected = x.id == id && select)
-        this.setState({ products: products });
+    onProductSelect: function (id) {
+        console.log(id);
+        this.setState({ selectedProductId: id });
     },
     onRemoveProduct: function (id) {
         var product = this.state.products.find(x => x.id === id);
@@ -31,7 +31,7 @@ var Shop = React.createClass({
         }
     },
     render: function () {
-        var products = this.state.products.map(product => React.createElement(Product, { key: product.id, product: product, onRemoveProduct: this.onRemoveProduct, onProductSelect: this.onProductSelect }))
+        var products = this.state.products.map(product => React.createElement(Product, { key: product.id, product: product, selected: this.state.selectedProductId === product.id, onRemoveProduct: this.onRemoveProduct, onProductSelect: this.onProductSelect }))
         return React.DOM.table({},
             React.DOM.thead({},
                 React.DOM.tr({},
