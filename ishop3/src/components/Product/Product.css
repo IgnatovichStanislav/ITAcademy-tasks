@@ -1,0 +1,11 @@
+.Product {
+    cursor: pointer;
+}
+
+.Product.selected {
+  background-color: orange;
+}
+
+.Product td{
+  border: 1px solid #000;
+}

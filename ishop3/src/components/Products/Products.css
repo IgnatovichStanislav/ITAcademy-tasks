@@ -1,0 +1,7 @@
+.Products {
+    border-collapse: collapse;
+}
+
+.Products th {
+    border: 1px solid #000;
+}
