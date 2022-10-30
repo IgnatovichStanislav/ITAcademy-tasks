@@ -25,7 +25,7 @@ class Product extends Component {
         <td>{this.props.product.url}</td>
         <td>{this.props.product.quantity}</td>
         <td>
-          <button onClick={(e) => {this.onRemoveButtonClick(e)}}>
+          <button onClick={(e) => this.onRemoveButtonClick(e)}>
             Delete
           </button>
         </td>
