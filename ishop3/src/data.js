@@ -7,7 +7,7 @@ export const data = [
     quantity: 6,
   },
   {
-    id: 222,
+    id: 777,
     name: "product2",
     price: 220,
     url: "http://qwfdge.com",
