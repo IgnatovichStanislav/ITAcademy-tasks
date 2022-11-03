@@ -1,7 +1,5 @@
 export function getId(products) {
   return (
-    products
-      .map((x) => x.id)
-      .reduce((prev, curr) => (prev < curr ? curr : prev)) + 1
+    products.reduce((prev, curr) => (prev.id < curr.id ? curr : prev)).id + 1
   );
 }

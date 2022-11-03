@@ -85,8 +85,7 @@ class ProductForm extends Component {
     Object.keys(controls).forEach((name) => {
       let control = controls[name];
       validateFormControl(control);
-      if (control.touched !== null) control.touched = true;
-      control.touched = true;
+
       controls[name] = control;
       product[name] = controls[name].value;
 
@@ -105,7 +104,6 @@ class ProductForm extends Component {
 
     let control = controls[name];
     control.value = val;
-    if (control.touched !== null) control.touched = true;
 
     validateFormControl(control);
 
