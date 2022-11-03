@@ -1,4 +1,5 @@
 import { React, Component } from "react";
+import "./Input.css";
 
 class Input extends Component {
   onChange = (e) => {
@@ -6,13 +7,17 @@ class Input extends Component {
     let val = e.target.value;
     this.props.onChange(name, val);
   };
+
   render() {
     const inputType = this.props.type || "text";
     const htmlFor = `${inputType}-${Math.random()}`;
 
     return (
-      <div className="form-group">
-        <label htmlFor={htmlFor}>{this.props.label}</label>
+      <div className="Input">
+        <label htmlFor={htmlFor}>
+          {this.props.label}{" "}
+          {this.props?.validation?.required === true ? <span>*</span> : null}
+        </label>
         <input
           type={inputType}
           id={htmlFor}
@@ -21,6 +26,14 @@ class Input extends Component {
           disabled={this.props.disabled}
           name={this.props.name}
         />
+        {/* Если потрогали + есть валидация + не валидно*/}
+        {this.props.touched && !!this.props.validation && !this.props.valid ? (
+          <span>
+            {this.props.errorMessages
+              ? this.props.errorMessages.join(", ")
+              : null}
+          </span>
+        ) : null}
       </div>
     );
   }

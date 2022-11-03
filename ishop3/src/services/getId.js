@@ -1,4 +1,7 @@
 export function getId(products) {
-  var arr = products.map((x) => x.id);
-  return Math.max(...arr) + 1;
+  return (
+    products
+      .map((x) => x.id)
+      .reduce((prev, curr) => (prev < curr ? curr : prev)) + 1
+  );
 }

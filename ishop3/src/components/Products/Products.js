@@ -48,14 +48,14 @@ class Products extends Component {
   };
 
   onSaveProduct = (product) => {
-    let products = this.state.products;
+    let products = [...this.state.products];
     if (product.id) {
       products = products.filter((x) => x.id !== product.id);
     } else {
       product.id = getId(products);
     }
     products.push(product);
-
+    products.sort((a, b) => a.id - b.id);
     this.setState({
       products,
       activeProduct: {
@@ -107,7 +107,7 @@ class Products extends Component {
     );
 
     let products = this.state.products
-      .sort((a, b) => a.id - b.id)
+      // .sort((a, b) => a.id - b.id)
       .map((x) => (
         <Product
           key={x.id}

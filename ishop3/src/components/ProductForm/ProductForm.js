@@ -1,6 +1,7 @@
 import { Component } from "react";
 import { productActionTypeEnum } from "../../enums/productActionTypeEnum";
 import Input from "../UI/Input/Input";
+import { validateFormControl } from "../../services/validateFormControl";
 
 class ProductForm extends Component {
   constructor(props) {
@@ -23,13 +24,14 @@ class ProductForm extends Component {
           label: "Id",
           disabled: true,
           touched: null,
-          valid: false,
+          valid: null,
         },
         name: {
           value: props?.name ?? "",
           label: "Name",
           touched: false,
           valid: false,
+          errorMessages: [],
           validation: {
             required: true,
           },
@@ -38,6 +40,8 @@ class ProductForm extends Component {
           value: props?.price ?? "",
           label: "Price",
           touched: false,
+          valid: false,
+          errorMessages: [],
           validation: {
             required: true,
             isNumber: true,
@@ -48,17 +52,19 @@ class ProductForm extends Component {
           value: props?.url ?? "",
           label: "Url",
           touched: false,
+          valid: false,
+          errorMessages: [],
           validation: {
             required: true,
-            isUrl: true,
           },
         },
         quantity: {
           value: props?.quantity ?? "",
           label: "Quantity",
           touched: false,
+          valid: false,
+          errorMessages: [],
           validation: {
-            required: true,
             isInteger: true,
             positive: true,
           },
@@ -72,13 +78,26 @@ class ProductForm extends Component {
   };
 
   onSaveClick = () => {
+    let controls = { ...this.state.controls };
     let product = {};
 
-    Object.keys(this.state.controls).forEach((controlName, index) => {
-      product[controlName] = this.state.controls[controlName].value;
+    let isFormValid = true;
+    Object.keys(controls).forEach((name) => {
+      let control = controls[name];
+      validateFormControl(control);
+      if (control.touched !== null) control.touched = true;
+      control.touched = true;
+      controls[name] = control;
+      product[name] = controls[name].value;
+
+      isFormValid = (control.valid === null || control.valid) && isFormValid;
     });
 
-    this.props.onSave(product);
+    if (isFormValid) {
+      this.props.onSave(product);
+    } else {
+      this.setState({ controls: controls });
+    }
   };
 
   onInputChange = (name, val) => {
@@ -87,6 +106,9 @@ class ProductForm extends Component {
     let control = controls[name];
     control.value = val;
     if (control.touched !== null) control.touched = true;
+
+    validateFormControl(control);
+
     controls[name] = control;
 
     let isFormTouched = Object.keys(controls)
@@ -99,6 +121,7 @@ class ProductForm extends Component {
   mapInputs() {
     return Object.keys(this.state.controls).map((controlName, index) => {
       let control = this.state.controls[controlName];
+      console.log(control);
       return (
         <Input
           key={controlName + index}
@@ -131,10 +154,7 @@ class ProductForm extends Component {
         {this.props.mode !== productActionTypeEnum.view ? (
           <div>
             <button
-              disabled={
-                // !this.state.isFormValid ||
-                !this.state.isFormTouched
-              }
+              disabled={!this.state.isFormTouched}
               onClick={this.onSaveClick}
             >
               {this.props.mode === productActionTypeEnum.edit ? "Save" : "Add"}
