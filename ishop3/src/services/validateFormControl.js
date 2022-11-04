@@ -15,19 +15,19 @@ export function validateFormControl(control) {
 
     if (isValid && control.validation.isNumber && val !== "") {
       isValid = !isNaN(val);
-      if (!isValid) control.errorMessages.push("Fill must be a number");
+      if (!isValid) control.errorMessages.push("Field must be a number");
     }
 
     if (isValid && control.validation.isInteger && val !== "") {
       let number = Number(val);
 
       isValid = Number.isInteger(number);
-      if (!isValid) control.errorMessages.push("Fill must be integer");
+      if (!isValid) control.errorMessages.push("Field must be integer");
     }
 
     if (isValid && control.validation.positive && val !== "") {
       isValid = Number(val) > 0;
-      if (!isValid) control.errorMessages.push("Fill must be positive");
+      if (!isValid) control.errorMessages.push("Field must be positive");
     }
 
     control.valid = isValid;
