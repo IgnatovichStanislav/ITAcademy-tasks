@@ -39,6 +39,7 @@ export function checkFormValidation(controls){
 
     Object.keys(controls).forEach((name) => {
       let control = controls[name];
+      validateFormControl(control);
       isFormValid = (control.valid === null || control.valid) && isFormValid;
     });
 

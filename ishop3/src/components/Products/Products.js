@@ -108,7 +108,7 @@ class Products extends Component {
       let products = this.state.products.filter((x) => x.id !== product.id);
       this.setState({ products: products });
 
-      if (product.id === this.state.activeProduct.selectedProductId)
+      if (product.id === this.state?.activeProduct?.selectedProductId)
         this.setState({
           activeProduct: null,
         });

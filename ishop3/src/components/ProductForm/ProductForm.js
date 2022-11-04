@@ -1,10 +1,7 @@
 import { Component } from "react";
 import { productActionTypeEnum } from "../../enums/productActionTypeEnum";
 import Input from "../UI/Input/Input";
-import {
-  validateFormControl,
-  checkFormValidation,
-} from "../../services/validateFormControl";
+import {  checkFormValidation} from "../../services/validateFormControl";
 
 class ProductForm extends Component {
   constructor(props) {
@@ -88,7 +85,6 @@ class ProductForm extends Component {
 
     Object.keys(controls).forEach((name) => {
       let control = controls[name];
-      validateFormControl(control);
 
       controls[name] = control;
       product[name] = controls[name].value;
@@ -107,7 +103,6 @@ class ProductForm extends Component {
 
     let control = controls[name];
     control.value = val;
-    validateFormControl(control);
     controls[name] = control;
 
     let isFormTouched = Object.keys(controls)
