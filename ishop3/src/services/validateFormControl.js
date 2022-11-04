@@ -6,7 +6,7 @@ export function validateFormControl(control) {
   } else {
     let isValid = true;
 
-    var val = control.value.trim().replace(",", ".");
+    let val = control.value.toString().trim().replace(",", ".");
 
     if (control.validation.required) {
       isValid = val !== "" && isValid;
@@ -19,7 +19,7 @@ export function validateFormControl(control) {
     }
 
     if (isValid && control.validation.isInteger && val !== "") {
-      var number = Number(val);
+      let number = Number(val);
 
       isValid = Number.isInteger(number);
       if (!isValid) control.errorMessages.push("Fill must be integer");
@@ -32,4 +32,15 @@ export function validateFormControl(control) {
 
     control.valid = isValid;
   }
+}
+
+export function checkFormValidation(controls){
+    let isFormValid = true;
+
+    Object.keys(controls).forEach((name) => {
+      let control = controls[name];
+      isFormValid = (control.valid === null || control.valid) && isFormValid;
+    });
+
+    return isFormValid;
 }

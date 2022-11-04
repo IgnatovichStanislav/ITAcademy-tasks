@@ -8,9 +8,11 @@ import { getId } from "../../services/getId";
 class Products extends Component {
   constructor(props) {
     super(props);
+    let products = [...this.props.products];
+    products.sort((a, b) => a.id - b.id);
 
     this.state = {
-      products: this.props.products,
+      products: products,
       activeProduct: null,
     };
 
@@ -21,7 +23,7 @@ class Products extends Component {
     if (this.state?.activeProduct?.mode === productActionTypeEnum.add) return;
     else if (
       this.state?.activeProduct?.mode === productActionTypeEnum.edit &&
-      !true ///todo:edit - если в редактируемую сейчас карточку не были внесены изменения, иначе клик игнорируется
+      this.state?.activeProduct?.isFormChanged === true ///todo:edit - если в редактируемую сейчас карточку не были внесены изменения, иначе клик игнорируется
     ) {
       return;
     } else {
@@ -29,6 +31,7 @@ class Products extends Component {
       if (product) {
         this.setState({
           activeProduct: {
+            isFormChanged: false,
             selectedProductId: product.id,
             mode: productActionTypeEnum.view,
           },
@@ -59,15 +62,25 @@ class Products extends Component {
     this.setState({
       products,
       activeProduct: {
+        isFormChanged: false,
         selectedProductId: product.id,
         mode: productActionTypeEnum.view,
       },
     });
   };
 
+  onFormChanged = () => {
+    if (!!this.state.activeProduct) {
+      let activeProduct = { ...this.state.activeProduct };
+      activeProduct.isFormChanged = true;
+      this.setState({ activeProduct });
+    }
+  };
+
   onAddProductClick(e) {
     this.setState({
       activeProduct: {
+        isFormChanged: false,
         selectedProductId: null,
         mode: productActionTypeEnum.add,
       },
@@ -79,6 +92,7 @@ class Products extends Component {
     if (product)
       this.setState({
         activeProduct: {
+          isFormChanged: false,
           selectedProductId: product.id,
           mode: productActionTypeEnum.edit,
         },
@@ -113,6 +127,7 @@ class Products extends Component {
           key={x.id}
           product={x}
           selected={activeProduct?.id === x.id}
+          isFormChanged={this.state?.activeProduct?.isFormChanged ?? false}
           onProductSelect={this.onProductSelect}
           onRemoveProduct={this.onRemoveProduct}
           onEditProduct={this.onEditProduct}
@@ -147,6 +162,7 @@ class Products extends Component {
             mode={this.state?.activeProduct?.mode}
             onCancel={this.onCancelEditProduct}
             onSave={this.onSaveProduct}
+            onFormChanged={this.onFormChanged}
           />
         ) : null}
       </Fragment>

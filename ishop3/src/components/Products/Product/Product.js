@@ -37,7 +37,10 @@ class Product extends Component {
         <td>{this.props.product.quantity}</td>
         <td>
           <button
-            disabled={this.props.mode === productActionTypeEnum.add}
+            disabled={
+              this.props.mode === productActionTypeEnum.add ||
+              this.props.isFormChanged
+            }
             onClick={this.onEditButtonClick}
           >
             Edit
