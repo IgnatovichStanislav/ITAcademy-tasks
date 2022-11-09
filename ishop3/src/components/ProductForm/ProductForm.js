@@ -1,17 +1,13 @@
 import { Component } from "react";
 import { productActionTypeEnum } from "../../enums/productActionTypeEnum";
 import Input from "../UI/Input/Input";
-import {  checkFormValidation} from "../../services/validateFormControl";
+import { checkFormValidation } from "../../services/validateFormControl";
+import { globalEvents } from "../../services/globalEvents";
 
 class ProductForm extends Component {
   constructor(props) {
     super(props);
     this.state = this.createFormState(props);
-  }
-
-  componentWillReceiveProps(props) {
-    if (JSON.stringify(props) !== JSON.stringify(this.props))
-      this.setState(this.createFormState(props));
   }
 
   createFormState = (props) => {
@@ -98,10 +94,14 @@ class ProductForm extends Component {
     }
   };
 
-  onInputChange = (name, val) => {
+  onInputChange = (e) => {
+    let name = e.target.getAttribute("name");
+    let val = e.target.value;
+
     const controls = { ...this.state.controls };
 
     let control = controls[name];
+    control.touched = true;
     control.value = val;
     controls[name] = control;
 
@@ -112,7 +112,9 @@ class ProductForm extends Component {
     let isFormValid = checkFormValidation(controls);
 
     this.setState({ controls, isFormTouched, isFormValid });
-    if (isFormTouched) this.props.onFormChanged();
+    if (isFormTouched) {
+      globalEvents.emit("onFormChanged");
+    }
   };
 
   mapInputs() {

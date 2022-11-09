@@ -4,6 +4,7 @@ import ProductForm from "../ProductForm/ProductForm";
 import "./Products.css";
 import { productActionTypeEnum } from "../../enums/productActionTypeEnum";
 import { getId } from "../../services/getId";
+import { globalEvents } from "../../services/globalEvents";
 
 class Products extends Component {
   constructor(props) {
@@ -17,6 +18,8 @@ class Products extends Component {
     };
 
     this.onAddProductClick = this.onAddProductClick.bind(this);
+
+    globalEvents.on("onFormChanged", this.onFormChanged);
   }
 
   onProductSelect = (id) => {
@@ -70,6 +73,7 @@ class Products extends Component {
   };
 
   onFormChanged = () => {
+    console.log("onFormChanged")
     if (!!this.state.activeProduct) {
       let activeProduct = { ...this.state.activeProduct };
       activeProduct.isFormChanged = true;
@@ -158,11 +162,12 @@ class Products extends Component {
 
         {this.state?.activeProduct ? (
           <ProductForm
+            key={1}
             {...activeProduct}
             mode={this.state?.activeProduct?.mode}
             onCancel={this.onCancelEditProduct}
             onSave={this.onSaveProduct}
-            onFormChanged={this.onFormChanged}
+            // onFormChanged={this.onFormChanged}
           />
         ) : null}
       </Fragment>
