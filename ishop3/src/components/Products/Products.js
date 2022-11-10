@@ -162,7 +162,6 @@ class Products extends Component {
 
         {this.state?.activeProduct ? (
           <ProductForm
-            key={1}
             {...activeProduct}
             mode={this.state?.activeProduct?.mode}
             onCancel={this.onCancelEditProduct}
