@@ -1,18 +1,15 @@
 import "./br2jsx.css";
-const Wrapper = (props) => props.children;
+// const Wrapper = (props) => props.children;
 
 const BR2JSX = (props) => {
-  var res = props.text
-    .replace(/<br[^>]*>/g, "*")
-    .split("*")
-    .map((item, index, items) => {
-      return (
-        <Wrapper key={index}>
-          {item} {items.length - 1 === index ? null : <br />}
-        </Wrapper>
-      );
-    });
+  var items = props.text.replace(/<br[^>]*>/g, "*").split("*");
 
+  let res = [];
+  for (let i = 0; i < items.length; i++) {
+    res.push(items[i]);
+    if (i !== items.length - 1) res.push(<br key={i} />);
+  }
+  
   return <div className={"br2jsx"}>{res}</div>;
 };
 

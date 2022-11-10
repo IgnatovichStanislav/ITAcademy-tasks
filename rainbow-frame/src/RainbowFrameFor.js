@@ -1,18 +1,11 @@
 const RainbowFrameFor = (props) => {
-  let wrapper;
-  for (let i = 0; i < props.colors.length; i++) {
-    wrapper = (
-      <div
-        style={{
-          border: "3px solid " + props.colors[i],
-        }}
-      >
-        {i > 0 ? wrapper : props.children}
-      </div>
+  let content = props.children;
+  for (let i = 0; i < props.colors.length; i++)
+    content = (
+      <div style={{ border: "3px solid " + props.colors[i] }}>{content}</div>
     );
-  }
 
-  return wrapper;
+  return content;
 };
 
 export default RainbowFrameFor;
