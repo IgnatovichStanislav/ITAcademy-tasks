@@ -10,9 +10,23 @@ class ProductForm extends Component {
     this.state = this.createFormState(props);
   }
 
-  componentWillReceiveProps(props) {
-    if (JSON.stringify(props) !== JSON.stringify(this.props))
-      this.setState(this.createFormState(props));
+  // componentWillReceiveProps(props) {
+  //   if (JSON.stringify(props) !== JSON.stringify(this.props))
+  //     this.setState(this.createFormState(props));
+  // }
+
+  componentDidMount(){
+    console.log("componentDidMount");
+  }
+
+  componentWillUnmount(){
+    console.log("componentWillUnmount");
+
+  }
+
+  componentDidUpdate(){
+    console.log("componentDidUpdate");
+
   }
 
   createFormState = (props) => {

@@ -73,7 +73,7 @@ class Products extends Component {
   };
 
   onFormChanged = () => {
-    console.log("onFormChanged")
+    console.log("onFormChanged");
     if (!!this.state.activeProduct) {
       let activeProduct = { ...this.state.activeProduct };
       activeProduct.isFormChanged = true;
@@ -162,6 +162,7 @@ class Products extends Component {
 
         {this.state?.activeProduct ? (
           <ProductForm
+            key={activeProduct?.id ?? -1}
             {...activeProduct}
             mode={this.state?.activeProduct?.mode}
             onCancel={this.onCancelEditProduct}
