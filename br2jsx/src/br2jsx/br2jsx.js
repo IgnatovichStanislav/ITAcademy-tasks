@@ -2,7 +2,7 @@ import "./br2jsx.css";
 // const Wrapper = (props) => props.children;
 
 const BR2JSX = (props) => {
-  var items = props.text.replace(/<br[^>]*>/g, "*").split("*");
+  var items = props.text.split(/<br[^>]*>/g);
 
   let res = [];
   for (let i = 0; i < items.length; i++) {
