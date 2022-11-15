@@ -12,6 +12,7 @@ export const mapClientsWithSortBy = (sort) => (clients) => {
       break;
     case filterStatusEnum.all:
     default:
+        clients=[...clients]
       break;
   }
 

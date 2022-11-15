@@ -28,7 +28,7 @@ export default class MobileService extends React.PureComponent {
   onEditClient = (id) => {
     this.setState({ editClientId: id });
   };
-  
+
   onDeleteClient = (id) => {
     let client = this.state.clients.find((x) => x.id === id);
     let clients = this.state.clients.filter((x) => x.id !== client.id);
@@ -64,9 +64,7 @@ export default class MobileService extends React.PureComponent {
   render() {
     console.log("render MobileService");
 
-    let clients = mapClientsWithSortBy(this.state.sort)([
-      ...this.state.clients,
-    ]);
+    let clients = mapClientsWithSortBy(this.state.sort)(this.state.clients);
 
     let editClient = this.state.clients.find(
       (x) => x.id === this?.state?.editClientId
