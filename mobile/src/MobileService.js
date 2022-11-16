@@ -30,8 +30,7 @@ export default class MobileService extends React.PureComponent {
   };
 
   onDeleteClient = (id) => {
-    let client = this.state.clients.find((x) => x.id === id);
-    let clients = this.state.clients.filter((x) => x.id !== client.id);
+    let clients = this.state.clients.filter((x) => x.id !== id);
     this.setState({ clients: clients, editClientId: null });
   };
 
