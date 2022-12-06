@@ -57,6 +57,7 @@ export default function MobileService(props) {
   function onCancelClientEdit() {
     setEditClientId(null);
   }
+  console.log("render MobileService");
 
   return (
     <div className={"MobileService"}>

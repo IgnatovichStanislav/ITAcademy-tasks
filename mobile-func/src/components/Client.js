@@ -1,6 +1,8 @@
 import React, { memo } from "react";
 
 const Client = (props) => {
+  console.log("render Client");
+
   function onRemoveButtonClick(e) {
     e.stopPropagation();
     props.onDeleteClient(props.data.id);
