@@ -1,0 +1,30 @@
+[
+  {
+    "id": 111,
+    "firstName": "111fn",
+    "lastName": "111ln",
+    "patronymic": "111lsn",
+    "balance": 111
+  },
+  {
+    "id": 222,
+    "firstName": "222fn",
+    "lastName": "222ln",
+    "patronymic": "222lsn",
+    "balance": 222
+  },
+  {
+    "id": 333,
+    "firstName": "333fn",
+    "lastName": "333ln",
+    "patronymic": "333lsn",
+    "balance": 333
+  },
+  {
+    "id": 444,
+    "firstName": "444fn",
+    "lastName": "444ln",
+    "patronymic": "444lsn",
+    "balance": -300
+  }
+]
