@@ -1,19 +1,31 @@
-export default function Controls({ search, order, onFilterControlsChange }) {
+import React, { useState, useEffect } from "react";
+
+export default function Controls({ onFilterControlsChange }) {
+  const [order, setOrder] = useState(false);
+  const [filter, setFilter] = useState("");
+
+  useEffect(() => {
+    onFilterControlsChange(filter, order);
+  }, [order, filter]);
+
   return (
     <div className={"Controls"}>
       <input
         type="checkbox"
         checked={order}
-        onChange={(event) =>
-          onFilterControlsChange(search, event.target.checked)
-        }
+        onChange={(event) => setOrder(event.target.checked)}
       />
       <input
         type="text"
-        value={search}
-        onChange={(event) => onFilterControlsChange(event.target.value, order)}
+        value={filter}
+        onChange={(event) => setFilter(event.target.value)}
       />
-      <button onClick={(event) => onFilterControlsChange('', false)}>Reset</button>
+      <button onClick={(event) => {
+        setOrder(false);
+        setFilter('');
+      }}>
+        Reset
+      </button>
     </div>
   );
 }

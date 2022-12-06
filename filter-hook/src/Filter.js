@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import Controls from "./components/Controls";
+import FilterControls from "./components/FilterControls";
 import List from "./components/List";
 
 export default function Filter(props) {
   const [filterData, setFilterData] = useState({
-    search: "",
-    order: false,
     data: props.data,
   });
 
@@ -16,17 +15,13 @@ export default function Filter(props) {
     if (order) filterData = filterData.sort();
 
     setFilterData({
-      search: search,
-      order: order,
       data: filterData,
     });
   }
 
   return (
     <div className={"Filter"}>
-      <Controls
-        search={filterData.search}
-        order={filterData.order}
+      <FilterControls
         onFilterControlsChange={onFilterControlsChange}
       />
       <List data={filterData.data} />
